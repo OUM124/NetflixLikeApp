@@ -1,5 +1,6 @@
-import MovieCard from "../Components/MovieCard"
+import MovieCard from "../Components/movieCard"
 import { useState } from "react";
+import '../Css/home.css';
 function Home(){
     const [searchTerm, setSearchTerm] = useState("");
     const movies = [
