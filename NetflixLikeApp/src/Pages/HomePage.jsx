@@ -1,14 +1,24 @@
 import MovieCard from "../Components/movieCard"
-import { useState } from "react";
+import { useState ,useEffect} from "react";
+import { searchMovies,getPopularMovies     }    from "../services/api";
 import '../Css/home.css';
 function Home(){
     const [searchTerm, setSearchTerm] = useState("");
-    const movies = [
-            { id: 1, title: "Inception", genre: "Sci-Fi" ,release_date: "2010-07-16"},
-            { id: 2, title: "The Dark Knight", genre: "Action" ,release_date: "2010-07-16"},
-            { id: 3, title: "Interstellar", genre: "Sci-Fi" ,release_date: "2010-07-16"},
-            { id: 4, title: "Pulp Fiction", genre: "Crime",release_date: "2010-07-16"},
-        ];
+   const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        const loadMovies = async () => {
+            try{
+                const popularMovies = await getPopularMovies();
+                setMovies(popularMovies);
+            }catch (error) {
+                console.error("Failed to fetch popular movies:", error);
+            }
+            
+    }
+    loadMovies();    
+} ,[]);
+
    const HandleSubmit = (e) => {
     alert("Search submitted: " + searchTerm);
     e.preventDefault();
